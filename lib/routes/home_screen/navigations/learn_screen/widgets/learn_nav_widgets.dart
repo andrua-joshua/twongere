@@ -34,23 +34,49 @@ class TopLearnDropDown extends StatelessWidget{
 }
 
 
-class PhraseInput extends StatelessWidget{
+class PhraseInput extends StatefulWidget{
   const PhraseInput({super.key});
+
+  @override
+  _phraseInputState createState() => _phraseInputState();
+
+
+}
+
+class _phraseInputState extends State<PhraseInput>{
+
+
+  final TextEditingController controller = TextEditingController();
+
+  @override
+  void dispose(){
+    controller.dispose();
+    super.dispose();
+  }
 
 
   @override
   Widget build(BuildContext context){
     return Container(
+      height: 50,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(60),
         color: AppColors.bgGreyColor
       ),
       padding: const EdgeInsets.all(10),
-      child: const Row(
+      child: Row(
         children: [
-          Expanded(child:Text("Wandika wano...", style: AppStyles.normalGreyColorTxtStyle,)),
-          SizedBox(width: 10,),
-          Icon(Icons.send, color: AppColors.primarColor, size: 30,)
+          Expanded(child: TextFormField(
+            controller: controller,
+            style: AppStyles.normalBlackTxtStyle,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+              hintText: "Wandika wano",
+              hintStyle: AppStyles.normalGreyColorTxtStyle
+            ),
+          )),
+          const SizedBox(width: 10,),
+          const Icon(Icons.send, color: AppColors.primarColor, size: 30,)
         ],
       ),
       

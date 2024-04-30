@@ -3,22 +3,32 @@ import 'package:twongere/util/app_colors.dart';
 import 'package:twongere/util/app_styles.dart';
 
 class TopSearchWidget extends StatelessWidget{
-  const TopSearchWidget({super.key});
+  final TextEditingController controller;
+  const TopSearchWidget({super.key, required this.controller});
 
 
   @override
   Widget build(BuildContext context){
     return Container(
+      height: 50,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(50),
         color: AppColors.bgGreyColor
       ),
       padding: const EdgeInsets.all(10),
-      child: const Row(
+      child: Row(
         children: [
-          Expanded(child: Text("Enter text to search", style: AppStyles.normalGreyColorTxtStyle,)),
-          SizedBox(width:  10,),
-          Icon(Icons.search_rounded, color: AppColors.blackColor,)
+          Expanded(
+            child: TextFormField(
+              controller: controller,
+              style: AppStyles.normalBlackTxtStyle,
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+                hintText: "Enter text to search",
+                hintStyle: AppStyles.normalGreyColorTxtStyle
+              ),)),
+          const SizedBox(width:  10,),
+          const Icon(Icons.search_rounded, color: AppColors.blackColor,)
         ],
       ),
     );

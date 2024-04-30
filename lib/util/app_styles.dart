@@ -62,7 +62,8 @@ class AppStyles{
   static const TextStyle splashTitleBlackTxtStyle = TextStyle(
     fontSize: AppFontSize.splashTitleFontSize,
     fontWeight: FontWeight.bold,
-    color: AppColors.greyColor
+    color: AppColors.greyColor,
+    fontFamily: "righteous"
   );
 
   static const TextStyle simpleTitleBlackTxtStyle = TextStyle(

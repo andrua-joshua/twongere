@@ -198,7 +198,11 @@ class _cordionWidgetState extends State<Cordionwidget>{
                           children: [
                             const CircleAvatar(radius: 20,),
                             const SizedBox(width: 5,),
-                            Text(_first, style:  AppStyles.normalBlackTxtStyle,)
+                            Expanded(
+                              child:Text(
+                                _first, 
+                                style: AppStyles.normalBlackTxtStyle, 
+                                overflow: TextOverflow.ellipsis,))
                           ],
                         ),
                       )),
@@ -215,8 +219,14 @@ class _cordionWidgetState extends State<Cordionwidget>{
                         child:SizedBox(
                         width: width,  
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text(_second, style:  AppStyles.normalBlackTxtStyle,),
+                            Expanded(
+                              child: Text(
+                                _second, 
+                                textAlign: TextAlign.end,
+                                style:  AppStyles.normalBlackTxtStyle, overflow: TextOverflow.ellipsis,)
+                                ),
                             const SizedBox(width: 5,),
                             const CircleAvatar(radius: 20,),
                           ],
@@ -226,7 +236,7 @@ class _cordionWidgetState extends State<Cordionwidget>{
                     ],
                   ),
               ),
-              const SizedBox(height: 10,),
+              _isVisible?const SizedBox(height: 10,):const SizedBox(),
               _isVisible? SizedBox(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -255,4 +265,96 @@ class _cordionWidgetState extends State<Cordionwidget>{
       },);
   }
 
+}
+
+
+
+class SingleDropDownWidget extends StatefulWidget{
+  final List<String> list;
+  final Function(int)? onChange;
+  const SingleDropDownWidget({
+    required this.list,
+    this.onChange,
+    super.key
+  });
+
+
+  @override
+  _singleDropDownWidgetState createState () => _singleDropDownWidgetState();
+
+}
+
+
+class _singleDropDownWidgetState extends State<SingleDropDownWidget>{
+
+  late String _strValue = widget.list.first;
+  bool _isVisible = false;
+  int _index = 0;
+
+  @override
+  Widget build(BuildContext context){
+    return LayoutBuilder(
+      builder:(context, constraints) {
+        double width = constraints.maxWidth;
+
+        return Column(
+              children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        _isVisible= !_isVisible;
+                      });
+                    },
+                    child:Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: AppColors.bgGreyColor
+                    ),
+                    padding: const EdgeInsets.all(5),
+                    child: Row(
+                      children: [
+                        const CircleAvatar(radius: 20,),
+                        const SizedBox(width:  10,),
+                        Expanded(
+                          child: Text(
+                            _strValue, style: AppStyles.normalPrimaryColorTxtStyle,)),
+                        const SizedBox(width:  10,),
+                        const Icon(Icons.keyboard_arrow_down, color: AppColors.blackColor,),
+                        const SizedBox(width:  10,),
+                      ],
+                    ),
+                  )),
+                  const SizedBox(height: 10,),
+                      _isVisible? Container(
+                        color: AppColors.bgGreyColor,
+                        width: width,       
+                        padding: const EdgeInsets.all(10),          
+                        child:SizedBox(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: List.generate(
+                            widget.list.length, 
+                            (index) => GestureDetector(
+                              onTap: (){
+                                setState(() {
+                                _strValue =  widget.list[index];
+                                _isVisible = false;
+                                _index = index;
+                                widget.onChange!=null? widget.onChange!(index):null;
+                                });
+                              },
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 10
+                              ),
+                              child: Text(
+                                widget.list[index], 
+                                style: AppStyles.normalBlackTxtStyle,),),
+                            )),
+                        ),
+                      )): const SizedBox()
+              ],
+            );
+      }, );
+  }
 }

@@ -14,7 +14,7 @@ class TxtTransTop extends StatelessWidget{
         borderRadius: BorderRadius.circular(30),
         color: AppColors.bgGreyColor
       ),
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(5),
       margin: const EdgeInsets.symmetric( vertical: 10),
       child:const Cordionwidget(list: ["Sign langauge", "English", "Spanish"]),
     );

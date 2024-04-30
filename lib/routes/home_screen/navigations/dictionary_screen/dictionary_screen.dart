@@ -15,6 +15,16 @@ class DictionaryNav extends StatefulWidget{
 
 class _dictionaryNavState extends State<DictionaryNav>{
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final TextEditingController controller = TextEditingController();
+
+    void _openDrawer() {
+      _scaffoldKey.currentState!.openDrawer();
+    }
+
+    void _closeDrawer() {
+      Navigator.of(context).pop();
+    }
 
   @override
   void dispose(){
@@ -24,11 +34,14 @@ class _dictionaryNavState extends State<DictionaryNav>{
   @override
   Widget build(BuildContext context){
     return Scaffold(
+      key: _scaffoldKey,
         appBar: AppBar(
           backgroundColor: AppColors.primarColor,
-          // leading: IconButton(
-          //   onPressed:(){} , 
-          //   icon: const Icon(Icons.menu_rounded, color: Colors.white,)),
+          leading: IconButton(
+            onPressed:(){
+              _openDrawer();
+            } , 
+            icon: const Icon(Icons.menu_rounded, color: Colors.white,)),
           
           title: const Text("Twogere", style: AppStyles.titleWhiteTxtStyle,),
 
@@ -52,7 +65,7 @@ class _dictionaryNavState extends State<DictionaryNav>{
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 20,),
-            const TopSearchWidget(),
+            TopSearchWidget(controller: controller,),
             const SizedBox(height: 20,),
             const Text("Text translation", style: AppStyles.normalGreyColorTxtStyle,),
             const SizedBox(height: 10,),
@@ -73,7 +86,8 @@ class _dictionaryNavState extends State<DictionaryNav>{
             const SizedBox(height: 50,),
             const Text("Speech translation", style: AppStyles.normalGreyColorTxtStyle,),
             const SizedBox(height: 10,),
-            const SelectLangaugeWidget()
+            const SingleDropDownWidget(list: [
+              "English","Luganda","Sign language"])
             // const TxtTransTop(),
             
           ],

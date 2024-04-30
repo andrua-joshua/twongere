@@ -19,14 +19,27 @@ class _learnNavState extends State<LearnNav>{
  int _currentIndex = 0;
  List<String> drop = ["Sign langauge", "Luganda"];
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void _openDrawer() {
+     _scaffoldKey.currentState!.openDrawer();
+  }
+
+  void _closeDrawer() {
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
           backgroundColor: AppColors.primarColor,
-          // leading: IconButton(
-          //   onPressed:(){} , 
-          //   icon: const Icon(Icons.menu_rounded, color: Colors.white,)),
+          leading: IconButton(
+            onPressed:(){
+              _openDrawer();
+            } , 
+            icon: const Icon(Icons.menu_rounded, color: Colors.white,)),
           
           title: const Text("Twogere", style: AppStyles.titleWhiteTxtStyle,),
 
@@ -51,14 +64,14 @@ class _learnNavState extends State<LearnNav>{
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 10,),
-                    GestureDetector(
-                      onTap: (){
+                    SingleDropDownWidget(
+                      list: const ["Sign language", "English", "Luganda"],
+                      onChange: (v){
                         setState(() {
-                          _currentIndex = _currentIndex==0? 1:0;
+                          _currentIndex = v;
                         });
-                      },
-                      child:TopLearnDropDown(label: drop[_currentIndex])),
-                    _currentIndex==0? LangTranslate(): SignLang() ///should be toggable
+                      },),
+                      _currentIndex==0? const SignLang(): const LangTranslate()  ///should be toggable
                   ],
                 ),
               ),)),

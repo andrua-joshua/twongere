@@ -14,16 +14,30 @@ class HomeNav extends StatefulWidget{
 
 class _homeNavState extends State<HomeNav> {
 
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
+    void _openDrawer() {
+      _scaffoldKey.currentState!.openDrawer();
+    }
+
+    void _closeDrawer() {
+      Navigator.of(context).pop();
+    }
+
+
   @override
   Widget build(BuildContext context){
     return DefaultTabController(
       length: 5, 
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           backgroundColor: AppColors.primarColor,
-          // leading: IconButton(
-          //   onPressed:(){} , 
-          //   icon: const Icon(Icons.menu_rounded, color: Colors.white,)),
+          leading: IconButton(
+            onPressed:(){
+              _openDrawer();
+            } , 
+            icon: const Icon(Icons.menu_rounded, color: Colors.white,)),
           
           title: const Text("Twogere", style: AppStyles.titleWhiteTxtStyle,),
 
