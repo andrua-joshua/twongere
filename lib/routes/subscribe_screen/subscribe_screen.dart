@@ -1,8 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:twongere/util/app_buttons.dart';
 import 'package:twongere/util/app_colors.dart';
 import 'package:twongere/util/app_styles.dart';
+import 'package:twongere/util/custom_widgets.dart';
 
 class SubscribeScreen extends StatefulWidget{
   const SubscribeScreen({super.key});
@@ -15,6 +15,25 @@ class SubscribeScreen extends StatefulWidget{
 
 class _subscribeScreenState extends State<SubscribeScreen>{
 
+  late final TextEditingController _mobileController;
+  late final TextEditingController _amountController;
+
+  @override
+  void initState(){
+    super.initState();
+
+    _mobileController = TextEditingController();
+    _amountController = TextEditingController();
+  }
+
+  @override
+  void dispose(){
+
+    _mobileController.dispose();
+    _amountController.dispose();
+
+  }
+
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -25,12 +44,13 @@ class _subscribeScreenState extends State<SubscribeScreen>{
             icon: const Icon(Icons.arrow_back, color: Colors.white,)),
           
           title: const Text("SUBSCRIBE", style: AppStyles.titleWhiteTxtStyle,),
+          centerTitle: true,
 
           actions: [
 
-            IconButton(
-              onPressed: (){}, 
-              icon: const Icon(Icons.stadium_rounded, color: Colors.white,)),
+            // IconButton(
+            //   onPressed: (){}, 
+            //   icon: const Icon(Icons.stadium_rounded, color: Colors.white,)),
 
             IconButton(
               onPressed: (){}, 
@@ -42,95 +62,101 @@ class _subscribeScreenState extends State<SubscribeScreen>{
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: SingleChildScrollView(
+            child: Column(
+              children:[
+              Expanded(
+              child:SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 150,),
-                  const Center(child:Text("SUBSCRIBE", style: AppStyles.titleBlackTxtStyle,) ),
+                  // const SizedBox(height: 50,),
+                  // const Center(child:Text("SUBSCRIBE", style: AppStyles.titleBlackTxtStyle,) ),
                   const SizedBox(height: 20,),
                   const Text("Select Network", style: AppStyles.normalGreyColorTxtStyle,),
-                  SizedBox(height: 5,),
-                  Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: AppColors.bgGreyColor,
-                      borderRadius: BorderRadius.circular(60)
-                    ),
-                    padding: const EdgeInsets.all(7),
-                    child: Row(
-                      children: [
-                        Icon(Icons.transfer_within_a_station_rounded, size: 30,),
-                        SizedBox(width: 10,),
-                        Expanded(child: const Text("Select Network", style: AppStyles.titlePrimaryTxtStyle,),),
-                        SizedBox(width: 10,),
-                        Icon(Icons.keyboard_arrow_down_outlined, size: 30, color: AppColors.primarColor,),
-
-                      ],        
-                    ),
-                  ),
+                  const SizedBox(height: 5,),
+                  SingleDropDownWidget(
+                      list: const ["MTN", "AIRTEL"],
+                      onChange: (v){
+                        setState(() {
+                         
+                        });
+                      },),
 
                   const SizedBox(height: 20,),
                   const Text("Select Plan", style: AppStyles.normalGreyColorTxtStyle,),
-                  SizedBox(height: 5,),
-                  Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: AppColors.bgGreyColor,
-                      borderRadius: BorderRadius.circular(60)
-                    ),
-                    padding: const EdgeInsets.all(7),
-                    child: Row(
-                      children: [
-                        Icon(Icons.change_circle_outlined, size: 30,),
-                        SizedBox(width: 10,),
-                        Expanded(child: const Text("1 Day", style: AppStyles.titlePrimaryTxtStyle,),),
-                        SizedBox(width: 10,),
-                        Icon(Icons.keyboard_arrow_down_outlined, size: 30, color: AppColors.primarColor,),
-
-                      ],        
-                    ),
-                  ),
+                  const SizedBox(height: 5,),
+                  SingleDropDownWidget(
+                      list: const ["Day", "Month"],
+                      onChange: (v){
+                        setState(() {
+                         
+                        });
+                      },),
 
 
 
                   const SizedBox(height: 20,),
-                  // const Text("Select Plan", style: AppStyles.normalGreyColorTxtStyle,),
-                  // SizedBox(height: 5,),
                   Container(
                     constraints: const BoxConstraints.expand(height: 50,),
                     decoration: BoxDecoration(
                       color: AppColors.bgGreyColor,
                       borderRadius: BorderRadius.circular(60)
                     ),
-                    padding: const EdgeInsets.all(7),
-                    child: const Center(child:Text("Enter mobile number", style: AppStyles.normalGreyColorTxtStyle,))
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: TextFormField(
+                      controller: _mobileController,
+                      keyboardType: TextInputType.phone,
+                      style: AppStyles.normalBlackTxtStyle,
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "Enter Mobile Number",
+                        hintStyle: AppStyles.normalGreyColorTxtStyle
+                      ),
+                    )  
                   ),
 
 
                   const SizedBox(height: 20,),
-                  // const Text("Select Plan", style: AppStyles.normalGreyColorTxtStyle,),
-                  // SizedBox(height: 5,),
                   Container(
                     constraints: const BoxConstraints.expand(height: 50,),
                     decoration: BoxDecoration(
                       color: AppColors.bgGreyColor,
                       borderRadius: BorderRadius.circular(60)
                     ),
-                    padding: const EdgeInsets.all(7),
-                    child: const Center(child:Text("Enter Amount", style: AppStyles.normalGreyColorTxtStyle,))
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: TextFormField(
+                      controller: _amountController,
+                      style: AppStyles.normalBlackTxtStyle,
+                      keyboardType: TextInputType.number,
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "Enter Amount",
+                        hintStyle: AppStyles.normalGreyColorTxtStyle
+                      ),
+                    )  
                   ),
                   const SizedBox(height: 20,),
-                  SizedBox(
+                  // SizedBox(
+                  //   child: CorneredButton(
+                  //     label: "Process Payment >>>>", 
+                  //     bgColor: AppColors.primarColor, 
+                  //     txtColor: AppColors.whiteColor, 
+                  //     onClick: (){}),
+                  // )
+                ],
+              ),
+            )),
+            const SizedBox(height: 10,),
+            SizedBox(
                     child: CorneredButton(
                       label: "Process Payment >>>>", 
                       bgColor: AppColors.primarColor, 
                       txtColor: AppColors.whiteColor, 
                       onClick: (){}),
-                  )
-                ],
-              ),
-            ),)),
+                  ),
+            const SizedBox(height: 10,),
+            ]),),
+            ),
 
     );
   }

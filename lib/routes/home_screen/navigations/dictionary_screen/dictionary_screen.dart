@@ -18,13 +18,6 @@ class _dictionaryNavState extends State<DictionaryNav>{
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final TextEditingController controller = TextEditingController();
 
-    void _openDrawer() {
-      _scaffoldKey.currentState!.openDrawer();
-    }
-
-    void _closeDrawer() {
-      Navigator.of(context).pop();
-    }
 
   @override
   void dispose(){
@@ -34,28 +27,7 @@ class _dictionaryNavState extends State<DictionaryNav>{
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      key: _scaffoldKey,
-        appBar: AppBar(
-          backgroundColor: AppColors.primarColor,
-          leading: IconButton(
-            onPressed:(){
-              _openDrawer();
-            } , 
-            icon: const Icon(Icons.menu_rounded, color: Colors.white,)),
-          
-          title: const Text("Twogere", style: AppStyles.titleWhiteTxtStyle,),
-
-          actions: [
-
-            IconButton(
-              onPressed: (){}, 
-              icon: const Icon(Icons.stadium_rounded, color: Colors.white,)),
-
-            IconButton(
-              onPressed: (){}, 
-              icon: const Icon(Icons.notifications, color: Colors.white,)),
-          ],
-        ),
+      
 
         body:  SafeArea(
           child:Padding(
@@ -95,14 +67,6 @@ class _dictionaryNavState extends State<DictionaryNav>{
       ), 
       ),),
 
-        drawer: Container(
-                width: 300,
-                padding: const EdgeInsets.all(10),
-                decoration: const BoxDecoration(
-                  color: Colors.white
-                ),
-                child: const SideDrawerWidget(),
-              ),
 
       );
   }

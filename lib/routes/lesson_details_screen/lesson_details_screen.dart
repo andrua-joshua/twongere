@@ -4,8 +4,31 @@ import 'package:twongere/util/app_colors.dart';
 import 'package:twongere/util/app_styles.dart';
 import 'package:twongere/util/custom_widgets.dart';
 
-class LessonDetailsScreen extends StatelessWidget{
+
+class LessonDetailsScreen extends StatefulWidget{
   const LessonDetailsScreen({super.key});
+
+  @override
+  _lessonDetailsScreenState createState() => _lessonDetailsScreenState();
+
+}
+
+class _lessonDetailsScreenState extends State<LessonDetailsScreen>{
+
+  late final TextEditingController controller;
+
+  @override
+  void initState(){
+    super.initState();
+
+    controller = TextEditingController();
+  }
+
+  @override
+  void dispose(){
+    controller.dispose();
+    super.dispose();
+  }
 
 
   @override
@@ -19,11 +42,13 @@ class LessonDetailsScreen extends StatelessWidget{
           
           title: const Text("Food lesson", style: AppStyles.titleWhiteTxtStyle,),
 
+          centerTitle: true,
+
           actions: [
 
-            IconButton(
-              onPressed: (){}, 
-              icon: const Icon(Icons.stadium_rounded, color: Colors.white,)),
+            // IconButton(
+            //   onPressed: (){}, 
+            //   icon: const Icon(Icons.stadium_rounded, color: Colors.white,)),
 
             IconButton(
               onPressed: (){}, 
@@ -42,23 +67,28 @@ class LessonDetailsScreen extends StatelessWidget{
                   const SizedBox(height: 30,),
                     const Text("Quick search Character, word, or sentence", style: AppStyles.normalGreyColorTxtStyle,),
                   Container(
+                    height: 50,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(60),
+                      borderRadius: BorderRadius.circular(50),
                       color: AppColors.bgGreyColor
                     ),
-                    padding: const EdgeInsets.all(10),
-                    child: const Row(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
                       children: [
                         Expanded(
-                          child:Text(
-                            "Orange", 
-                            overflow: TextOverflow.ellipsis ,
-                            style: AppStyles.normalGreyColorTxtStyle,)),
-                        SizedBox(width: 10,),
-                        Icon(Icons.search, color: AppColors.primarColor, size: 30,)
-                        ],
-                       ),
-                      ),
+                          child: TextFormField(
+                            controller: controller,
+                            style: AppStyles.normalBlackTxtStyle,
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "Orange",
+                              hintStyle: AppStyles.normalGreyColorTxtStyle
+                            ),)),
+                        const SizedBox(width:  10,),
+                        const Icon(Icons.search, color: AppColors.blackColor,)
+                      ],
+                    ),
+                  ),
 
                       const SizedBox(height: 30,),
                       const SizedBox(
@@ -103,7 +133,8 @@ class LessonDetailsScreen extends StatelessWidget{
                         label: "More subject expressions >>>", 
                         bgColor: AppColors.primarColor, 
                         txtColor: AppColors.whiteColor, 
-                        onClick: (){})
+                        onClick: (){}),
+                      const SizedBox(height: 20,),
                 ],
               ),
             ),

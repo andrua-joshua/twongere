@@ -16,12 +16,13 @@ class TextInputWidget extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return Container(
+      height: 50,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         border: Border.all(color: AppColors.bgGreyColor, width: 2)
       ),
 
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: TextFormField(
         controller:  controller,
         obscureText: isPassword,
@@ -53,12 +54,13 @@ class PhoneInputWidget extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return Container(
+      height: 50,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         border: Border.all(color: AppColors.bgGreyColor, width: 2)
       ),
 
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
       child: Row(
         children: [
           TextButton(

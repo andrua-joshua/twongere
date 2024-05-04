@@ -1,29 +1,45 @@
+// Copyright 2019 The Chromium Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// ignore_for_file: public_member_api_docs
+
+import 'dart:async';
 import 'dart:io';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_better_camera/camera.dart';
+import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:twongere/main.dart';
-import 'package:twongere/routes/camera_sample/test_camera.dart';
-import 'package:twongere/routes/home_screen/navigations/home_nav/tabs/text_trans_tab/widgets/text_trans_tab_widgets.dart';
-import 'package:twongere/util/app_colors.dart';
-import 'package:twongere/util/app_styles.dart';
 import 'package:video_player/video_player.dart';
 
-class TextTransTab extends StatefulWidget{
-  const TextTransTab({super.key});
-
+class CameraExampleHome extends StatefulWidget {
   @override
-  _textTransTab createState ()=> _textTransTab();
-
+  _CameraExampleHomeState createState() {
+    return _CameraExampleHomeState();
+  }
 }
 
+/// Returns a suitable camera icon for [direction].
+IconData getCameraLensIcon(CameraLensDirection? direction) {
+  switch (direction) {
+    case CameraLensDirection.back:
+      return Icons.camera_rear;
+    case CameraLensDirection.front:
+      return Icons.camera_front;
+    case CameraLensDirection.external:
+      return Icons.camera;
+    case null:
+      // TODO: Handle this case.
+  }
+  throw ArgumentError('Unknown lens direction');
+}
 
+void logError(String code, String? message) =>
+    print('Error: $code\nError Message: $message');
 
-class _textTransTab extends State<TextTransTab> with WidgetsBindingObserver{
-
-  final TextEditingController _firstController = TextEditingController();
-  bool _isStreaming = true;
+class _CameraExampleHomeState extends State<CameraExampleHome>
+    with WidgetsBindingObserver {
   CameraController? controller;
   String? imagePath;
   late String videoPath;
@@ -32,24 +48,20 @@ class _textTransTab extends State<TextTransTab> with WidgetsBindingObserver{
   bool enableAudio = true;
   FlashMode flashMode = FlashMode.off;
 
-  int cameraIndex = 0;
-
   @override
   void initState() {
     super.initState();
-
     WidgetsBinding.instance!.addObserver(this);
-    onNewCameraSelected(cameras[cameraIndex]);
   }
 
   @override
-  void dispose(){
+  void dispose() {
     WidgetsBinding.instance!.removeObserver(this);
-    _firstController.dispose();
     super.dispose();
   }
 
-    @override
+
+  @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     // App state changed before we got the chance to initialize.
     if (controller == null || !controller!.value.isInitialized!) {
@@ -66,90 +78,62 @@ class _textTransTab extends State<TextTransTab> with WidgetsBindingObserver{
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-
   @override
-  Widget build(BuildContext context){
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(height: 20,),
-              Container(
-                // width: 250,
-                // constraints: const BoxConstraints.expand(height: 400),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: AppColors.bgGreyColor
-                ),
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                child: Stack(
-                  children: [
-                    _isStreaming? 
-                    // ZoomableWidget(
-                    //     child: 
-                        cameraPreviewWidget()
-                        // onTapUp: (scaledPoint) {
-                        //   //controller.setPointOfInterest(scaledPoint);
-                        // },
-                        // onZoom: (zoom) {
-                        //   print('zoom');
-                        //   if (zoom < 11) {
-                        //     controller!.zoom(zoom);
-                        //   }
-                        // }
-                        // )
-                        :Container(
-                          color: AppColors.bgGreyColor,
-                          constraints: const BoxConstraints.expand(height: 400),
-                        ), 
-                      
-                    // const SizedBox(height: 10,),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child:SizedBox(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            onPressed: (){
-                              setState(() {
-                                _isStreaming= !_isStreaming;
-                                
-                              });
-                            }, 
-                            icon: _isStreaming? 
-                            const Icon(Icons.stop, color: AppColors.primarColor,): const Icon(Icons.play_arrow, color: AppColors.primarColor)),
-
-                          TextButton(
-                            onPressed: (){
-                              setState(() {
-                                if(cameras.length>0){
-                                  cameraIndex = cameraIndex==0? 1:0;
-                                  onNewCameraSelected(cameras[cameraIndex]);
-                                }
-                              });
-                            }, 
-                            child: cameraIndex==0? 
-                            const Icon(Icons.video_camera_back, color: AppColors.primarColor,): const Icon(Icons.video_camera_front, color: AppColors.primarColor)),
-                        ],
-                      ),
-                    )),
-                  ],
+  Widget build(BuildContext context) {
+    return Scaffold(
+      key: _scaffoldKey,
+      appBar: AppBar(
+        title: const Text('Camera example'),
+      ),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black,
+                border: Border.all(
+                  color: controller != null && controller!.value.isRecordingVideo!
+                      ? Colors.redAccent
+                      : Colors.grey,
+                  width: 3.0,
                 ),
               ),
-              const TxtTransTop(),
-              !_isStreaming? FirstTxt(controller: _firstController):
-              const TranslatedTextWidget(
-                text: "Collect and analyze market sentiment data from various sources, such as investor surveys, news sentiment analysis, and social media sentiment analysis. Collect and analyze market sentiment data from various sources, such as investor surveys, news sentiment analysis, and social media sentiment analysis.", 
-                language: "lusoga")
-          ],
-        ),
-      ), 
+              child: Padding(
+                padding: const EdgeInsets.all(1.0),
+                child: Center(
+                    child: ZoomableWidget(
+                        child: cameraPreviewWidget(),
+                        onTapUp: (scaledPoint) {
+                          //controller.setPointOfInterest(scaledPoint);
+                        },
+                        onZoom: (zoom) {
+                          print('zoom');
+                          if (zoom < 11) {
+                            controller!.zoom(zoom);
+                          }
+                        })),
+              ),
+              
+            ),
+          ),
+          // _captureControlRowWidget(),
+          // _toggleAudioWidget(),
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                _cameraTogglesRowWidget(),
+                _thumbnailWidget(),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-/// Display the preview from the camera (or a message if the preview is not available).
+  /// Display the preview from the camera (or a message if the preview is not available).
   Widget cameraPreviewWidget() {
     if (controller == null || !controller!.value.isInitialized!) {
       return const Text(
@@ -165,16 +149,6 @@ class _textTransTab extends State<TextTransTab> with WidgetsBindingObserver{
         aspectRatio: controller!.value.aspectRatio,
         child: CameraPreview(controller!),
       );
-      
-      
-      // Container(
-      //   constraints: const BoxConstraints.expand(),
-      //   decoration: BoxDecoration(
-      //     borderRadius: BorderRadius.circular(15)
-      //   ),
-      //   // padding: const EdgeInsets.all(5),
-      //   child: CameraPreview(controller!),
-      // );
     }
   }
 
@@ -210,9 +184,13 @@ class _textTransTab extends State<TextTransTab> with WidgetsBindingObserver{
             videoController == null && imagePath == null
                 ? Container()
                 : SizedBox(
+                    width: 64.0,
+                    height: 64.0,
                     child: (videoController == null)
                         ? Image.file(File(imagePath!))
                         : Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(color: Colors.pink)),
                             child: Center(
                               child: AspectRatio(
                                   aspectRatio:
@@ -221,11 +199,7 @@ class _textTransTab extends State<TextTransTab> with WidgetsBindingObserver{
                                           : 1.0,
                                   child: VideoPlayer(videoController!)),
                             ),
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.pink)),
                           ),
-                    width: 64.0,
-                    height: 64.0,
                   ),
           ],
         ),
@@ -559,5 +533,139 @@ class _textTransTab extends State<TextTransTab> with WidgetsBindingObserver{
     logError(e.code, e.description);
     showInSnackBar('Error: ${e.code}\n${e.description}');
   }
-  
+}
+
+
+
+
+
+//Zoomer this will be a seprate widget
+class ZoomableWidget extends StatefulWidget {
+  final Widget? child;
+  final Function? onZoom;
+  final Function? onTapUp;
+
+  const ZoomableWidget({Key? key, this.child, this.onZoom, this.onTapUp})
+      : super(key: key);
+
+  @override
+  _ZoomableWidgetState createState() => _ZoomableWidgetState();
+}
+
+class _ZoomableWidgetState extends State<ZoomableWidget> {
+  Matrix4 matrix = Matrix4.identity();
+  double zoom = 1;
+  double prevZoom = 1;
+  bool showZoom = false;
+  Timer? t1;
+
+  bool handleZoom(newZoom){
+    if (newZoom >= 1) {
+      if (newZoom > 10) {
+        return false;
+      }
+      setState(() {
+        showZoom = true;
+        zoom = newZoom;
+      });
+
+      if (t1 != null) {
+        t1!.cancel();
+      }
+
+      t1 = Timer(Duration(milliseconds: 2000), () {
+        setState(() {
+          showZoom = false;
+        });
+      });
+    }
+    widget.onZoom!(zoom);
+    return true;
+
+  }
+  @override
+  Widget build(BuildContext context) {
+
+    return GestureDetector(
+        onScaleStart: (scaleDetails) {
+          print('scalStart');
+          setState(() => prevZoom = zoom);
+          //print(scaleDetails);
+        },
+        onScaleUpdate: (ScaleUpdateDetails scaleDetails) {
+          var newZoom = (prevZoom * scaleDetails.scale);
+
+          handleZoom(newZoom);
+        },
+        onScaleEnd: (scaleDetails) {
+          print('end');
+          //print(scaleDetails);
+        },
+        onTapUp: (TapUpDetails det) {
+          final RenderBox box = context.findRenderObject() as RenderBox;
+          final Offset localPoint = box.globalToLocal(det.globalPosition);
+          final Offset scaledPoint =
+              localPoint.scale(1 / box.size.width, 1 / box.size.height);
+          // TODO IMPLIMENT
+          // widget.onTapUp(scaledPoint);
+        },
+        child: Stack(children: [
+          Column(
+            children: <Widget>[
+              Container(
+                child: Expanded(
+                  child: widget.child!,
+                ),
+              ),
+            ],
+          ),
+          Visibility(
+            visible: showZoom, //Default is true,
+            child: Positioned.fill(
+              child: Container(
+                  child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Align(
+                      alignment: Alignment.bottomCenter,
+                      child:
+                      SliderTheme(
+                        data: SliderTheme.of(context).copyWith(
+                          valueIndicatorTextStyle: TextStyle(
+                              color: Colors.amber, letterSpacing: 2.0, fontSize: 30),
+                          valueIndicatorColor: Colors.blue,
+                          // This is what you are asking for
+                          inactiveTrackColor: Color(0xFF8D8E98),
+                          // Custom Gray Color
+                          activeTrackColor: Colors.white,
+                          thumbColor: Colors.red,
+                          overlayColor: Color(0x29EB1555),
+                          // Custom Thumb overlay Color
+                          thumbShape:
+                          RoundSliderThumbShape(enabledThumbRadius: 12.0),
+                          overlayShape:
+                          RoundSliderOverlayShape(overlayRadius: 20.0),
+
+                        ),
+                        child: Slider(
+                          value: zoom,
+                          onChanged: (double newValue) {
+                            handleZoom(newValue);
+                          },
+                          label: "$zoom",
+                          min: 1,
+                          max: 10,
+                        ),
+                      ),
+                  ),
+                ],
+              )),
+            ),
+            //maintainSize: bool. When true this is equivalent to invisible;
+            //replacement: Widget. Defaults to Sizedbox.shrink, 0x0
+          )
+        ]));
+  }
 }

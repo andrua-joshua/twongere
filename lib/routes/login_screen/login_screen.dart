@@ -20,6 +20,8 @@ class _loginScreenState extends State<LoginScreen>{
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
+  bool isChecked = true;
+
   @override
   void dispose(){
     _emailController.dispose();
@@ -34,7 +36,7 @@ class _loginScreenState extends State<LoginScreen>{
         backgroundColor: AppColors.primarColor,
         centerTitle: true,
         automaticallyImplyLeading: false,
-        title: const Text("\"Some Catchy text....\"", style: AppStyles.titleWhiteTxtStyle,),
+        title: const Text("Hi, Welcome!", style: AppStyles.titleWhiteTxtStyle,),
       ),
 
       body: SafeArea(
@@ -51,22 +53,22 @@ class _loginScreenState extends State<LoginScreen>{
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 40,),
-                      const Text("Hi, Welcome Back!", style: AppStyles.simpleTitleBlackTxtStyle,),
-                      const SizedBox(height: 10,),
-                      const Text("Hello again, you've been \nmissed!", style: AppStyles.normalGreyColorTxtStyle,),
-                      const SizedBox(height: 50,),
+                      // const Text("Hi, Welcome Back!", style: AppStyles.simpleTitleBlackTxtStyle,),
+                      // const SizedBox(height: 10,),
+                      // const Text("Hello again, you've been \nmissed!", style: AppStyles.normalGreyColorTxtStyle,),
+                      // const SizedBox(height: 50,),
                       const Text("Email", style: AppStyles.normalPrimaryColorTxtStyle,),
                       const SizedBox(height: 2,),
                       TextInputWidget(
                         controller: _emailController, 
-                        hintText: "drillox@gmail.com", 
+                        hintText: "yourname@gmail.com", 
                         isPassword: false),
                       const SizedBox(height: 20,),
                       const Text("Password", style: AppStyles.normalPrimaryColorTxtStyle,),
                       const SizedBox(height: 2,),
                       TextInputWidget(
                         controller: _passwordController, 
-                        hintText: "Please Enter your Password", 
+                        hintText: "Password", 
                         isPassword: true),
                       const SizedBox(height: 20,),
                       SizedBox(
@@ -77,8 +79,13 @@ class _loginScreenState extends State<LoginScreen>{
                               child: Row(
                                 children: [
                                   Checkbox(
-                                    value: true, 
-                                    onChanged: (x){}),
+                                    activeColor: AppColors.primarColor,
+                                    value: isChecked, 
+                                    onChanged: (x){
+                                      setState(() {
+                                        isChecked = x??false;
+                                      });
+                                    }),
                                   const Text("Remember Me", style: AppStyles.normalBlackTxtStyle,)
                                 ],
                               ),

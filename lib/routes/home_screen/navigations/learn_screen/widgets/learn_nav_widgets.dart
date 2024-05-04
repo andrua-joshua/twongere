@@ -126,31 +126,49 @@ class LangTranslate extends StatelessWidget{
 }
 
 
+class QuickSearchInput extends StatefulWidget{
 
-class QuickSearchInput extends StatelessWidget{
   const QuickSearchInput({super.key});
 
+  @override
+  _quickSearchInputState createState() => _quickSearchInputState();
+}
+
+class _quickSearchInputState extends State<QuickSearchInput>{
+
+  late final TextEditingController controller;
+
+  @override
+  void initState(){
+    super.initState();
+
+    controller = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context){
     return Container(
+      height: 50,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(60),
+        borderRadius: BorderRadius.circular(50),
         color: AppColors.bgGreyColor
       ),
-      padding: const EdgeInsets.all(10),
-      child: const Row(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: Row(
         children: [
           Expanded(
-            child:Text(
-              "Quick Search Categories", 
-              overflow: TextOverflow.ellipsis ,
-              style: AppStyles.normalGreyColorTxtStyle,)),
-          SizedBox(width: 10,),
-          Icon(Icons.search, color: AppColors.primarColor, size: 30,)
+            child: TextFormField(
+              controller: controller,
+              style: AppStyles.normalBlackTxtStyle,
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+                hintText: "Enter text to search",
+                hintStyle: AppStyles.normalGreyColorTxtStyle
+              ),)),
+          const SizedBox(width:  10,),
+          const Icon(Icons.search, color: AppColors.blackColor,)
         ],
       ),
-      
     );
   }
 }

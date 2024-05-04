@@ -37,7 +37,7 @@ class FirstTxt extends StatelessWidget{
         color: AppColors.bgGreyColor,
         border: Border.all(color: const Color.fromARGB(255, 224, 224, 224), width: 2)
       ),
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.all(5),
       margin: const EdgeInsets.symmetric(vertical:10),
       child: Column(
         crossAxisAlignment:  CrossAxisAlignment.start,
@@ -61,26 +61,26 @@ class FirstTxt extends StatelessWidget{
                 SizedBox(
                   child: Row(
                     children: [
-                      const SizedBox(
-                        child: Column(
-                          children: [
-                            Icon(Icons.volume_up_outlined, color: AppColors.blackColor, size: 30,),
-                            Text("Liston", style: AppStyles.normalBlackTxtStyle,)
-                          ],
-                        ),
-                      ),
+                      // const SizedBox(
+                      //   child: Column(
+                      //     children: [
+                      //       Icon(Icons.volume_up_outlined, color: AppColors.blackColor, size: 20,),
+                      //       Text("Liston", style: AppStyles.normalBlackTxtStyle,)
+                      //     ],
+                      //   ),
+                      // ),
 
-                      Container(
-                        width: 1.5,
-                        height: 30,
-                        color: Color.fromARGB(255, 212, 212, 212),
-                        margin: const EdgeInsets.symmetric(horizontal: 15),
-                      ),
+                      // Container(
+                      //   width: 1.5,
+                      //   height: 30,
+                      //   color: Color.fromARGB(255, 212, 212, 212),
+                      //   margin: const EdgeInsets.symmetric(horizontal: 15),
+                      // ),
                       const SizedBox(
                         child: Column(
                           children: [
-                            Icon(Icons.settings_voice_outlined, color: AppColors.blackColor, size: 30,),
-                            Text("Voice", style: AppStyles.normalBlackTxtStyle,)
+                            Icon(Icons.mic, color: AppColors.blackColor, size: 20,),
+                            // Text("Voice", style: AppStyles.normalBlackTxtStyle,)
                           ],
                         ),
                       )
@@ -90,14 +90,8 @@ class FirstTxt extends StatelessWidget{
 
                 IconButton(
                   onPressed: (){}, 
-                  icon: Container(
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      color:   AppColors.primarColor
-                      ),
-                    padding: const EdgeInsets.all(10),
-                    child: const Icon(Icons.send, color: AppColors.whiteColor, size: 30,),
-                ))
+                  icon: const Icon(Icons.send_rounded, color: AppColors.primarColor, size: 20,),
+                )
               ],
             ),
           ),
@@ -136,9 +130,9 @@ class TranslatedTextWidget extends StatelessWidget{
           SizedBox(
             child: Row(
               children: [
-                Text(language, style: AppStyles.titlePrimaryTxtStyle,),
+                Text(language, style: AppStyles.normalPrimaryColorTxtStyle,),
                 const SizedBox(width: 10,),
-                const Icon(Icons.volume_up_outlined, color: AppColors.blackColor, size: 30,)
+                const Icon(Icons.volume_up_outlined, color: AppColors.blackColor, size: 20,)
               ],
             ),
           ),
@@ -152,11 +146,11 @@ class TranslatedTextWidget extends StatelessWidget{
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Icon(Icons.share, color: AppColors.blackColor, size: 25,),
+                Icon(Icons.share, color: AppColors.blackColor, size: 20,),
                 SizedBox(width: 10,),
-                Icon(Icons.star_border_outlined, color: AppColors.blackColor, size: 25,),
+                Icon(Icons.star_border_outlined, color: AppColors.blackColor, size: 20,),
                 SizedBox(width: 10,),
-                Icon(Icons.copy, color: AppColors.blackColor, size: 25,)
+                Icon(Icons.copy, color: AppColors.blackColor, size: 20,)
               ],
             ),
           )

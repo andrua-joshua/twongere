@@ -10,7 +10,8 @@ class SideDrawerWidget extends StatelessWidget{
 
   @override
   Widget build(BuildContext context){
-    return Column(
+    return SafeArea(
+      child:Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
@@ -42,7 +43,7 @@ class SideDrawerWidget extends StatelessWidget{
             const Text("A product of Cognosphere Dynamics Limited. \nLicensed by the Cognosphere Dynamics Limited",
             style: AppStyles.smallGreyTxtStyle,)
       ],
-    ); //
+    )); //
   }//.jsx /tsx
 
 }

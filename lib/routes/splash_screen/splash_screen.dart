@@ -12,8 +12,10 @@ class SplashScreen extends StatelessWidget{
       (value) => Navigator.pushNamed(context, RoutesGenerator.loginScreen));
 
     return Scaffold(
-      body: SafeArea(
-        child: Container(
+      body:
+      //  SafeArea(
+      //   child:
+         Container(
           constraints:  const BoxConstraints.expand(),
           decoration: const BoxDecoration(
             image: DecorationImage(
@@ -22,17 +24,17 @@ class SplashScreen extends StatelessWidget{
 
             )
           ),
-          child: const Column(
+          child: Column(
             children: [
-              Expanded(
+              const Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    SizedBox(height: 200,),
+                    SizedBox(height: 100,),
                     Text("\"TWOGERE\"", style:  AppStyles.splashTitleBlackTxtStyle,),
                   ],
                 )),
-              SizedBox(
+              const SizedBox(
                 child: Center(
                   child: Image(
                     width: 30,
@@ -40,23 +42,29 @@ class SplashScreen extends StatelessWidget{
                     image: AssetImage("assets/images/loding.gif")),
                 ),
               ),
-              SizedBox(height: 70,),
+              const SizedBox(height: 70,),
               SizedBox(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircleAvatar(
-                      radius: 20,
-                      foregroundImage: AssetImage("assets/images/cog.png"),
+                    Container(
+                      height: 30,
+                      width: 30,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/cog.png"))
                       ),
-                    SizedBox(width: 10,),
-                    Text("Cognosphere Dynamics.",style: AppStyles.normalGreyColorBoldTxtStyle)
+                    ),
+                    const SizedBox(width: 10,),
+                    const Text("Cognosphere Dynamics.",style: AppStyles.normalGreyColorTxtStyle)
                   ],
                 )
               ),
               SizedBox(height: 10,),
             ],
-          ),
+          // ),
+
         )),
     );
   }

@@ -15,7 +15,7 @@ class TopSearchWidget extends StatelessWidget{
         borderRadius: BorderRadius.circular(50),
         color: AppColors.bgGreyColor
       ),
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         children: [
           Expanded(
@@ -28,7 +28,7 @@ class TopSearchWidget extends StatelessWidget{
                 hintStyle: AppStyles.normalGreyColorTxtStyle
               ),)),
           const SizedBox(width:  10,),
-          const Icon(Icons.search_rounded, color: AppColors.blackColor,)
+          const Icon(Icons.manage_search_sharp, color: AppColors.blackColor,)
         ],
       ),
     );

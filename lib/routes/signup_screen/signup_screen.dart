@@ -20,12 +20,14 @@ class _signUpScreenState extends State<SignUpScreen>{
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _confirmPasswordController= TextEditingController();
 
   @override
   void dispose(){
     _emailController.dispose();
     _passwordController.dispose();
     _phoneController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -36,7 +38,7 @@ class _signUpScreenState extends State<SignUpScreen>{
         backgroundColor: AppColors.primarColor,
         centerTitle: true,
         automaticallyImplyLeading: false,
-        title: const Text("\"Some Catchy text....\"", style: AppStyles.titleWhiteTxtStyle,),
+        title: const Text("Let's get you started", style: AppStyles.titleWhiteTxtStyle,),
       ),
 
       body: SafeArea(
@@ -53,15 +55,11 @@ class _signUpScreenState extends State<SignUpScreen>{
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(height: 40,),
-                      const Text("Create an account", style: AppStyles.splashTitleBlackTxtStyle,),
-                      const SizedBox(height: 10,),
-                      const Text("Connect with your friends \ntoday!", style: AppStyles.normalGreyColorTxtStyle,),
-                      const SizedBox(height: 50,),
                       const Text("Email Address", style: AppStyles.normalPrimaryColorTxtStyle,),
                       const SizedBox(height: 2,),
                       TextInputWidget(
                         controller: _emailController, 
-                        hintText: "drillox@gmail.com", 
+                        hintText: "yourname@gmail.com", 
                         isPassword: false),
                       const SizedBox(height: 20,),
                       const Text("Phone Number", style: AppStyles.normalPrimaryColorTxtStyle,),
@@ -76,6 +74,13 @@ class _signUpScreenState extends State<SignUpScreen>{
                       TextInputWidget(
                         controller: _passwordController, 
                         hintText: "Please Enter your Password", 
+                        isPassword: true),
+                      const SizedBox(height: 20,),
+                      const Text("Confirm Password", style: AppStyles.normalPrimaryColorTxtStyle,),
+                      const SizedBox(height: 2,),
+                      TextInputWidget(
+                        controller: _confirmPasswordController, 
+                        hintText: "Confirm password", 
                         isPassword: true),
                       
                       const SizedBox(height: 50,),
