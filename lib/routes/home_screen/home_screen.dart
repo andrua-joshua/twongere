@@ -42,6 +42,8 @@ class _homeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   late PageController pageController;
 
+  bool isPaired= false;
+
   @override
   void initState() {
     super.initState();
@@ -54,17 +56,86 @@ class _homeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       key: _scaffoldKey,
       appBar: AppBar(
           backgroundColor: AppColors.primarColor,
-          leading: IconButton(
+          leading: Row(
+            children: [
+              IconButton(
             onPressed:(){
               _openDrawer();
             } , 
             icon: const Icon(Icons.menu_rounded, color: Colors.white,)),
+            IconButton(
+            onPressed:(){
+              // _openDrawer();
+            } , 
+            icon: const Icon(Icons.upload, color: Colors.white,))
+            ],
+          ),
 
           title: Text(tabIndex==0?"Learn":tabIndex==1?"Twogere":"Dictionary", 
           style: AppStyles.titleWhiteTxtStyle,),
           centerTitle: true,
 
           actions: [
+            IconButton(
+              onPressed: (){
+                isPaired?setState(() {
+                  isPaired = false; 
+                  
+                }): showDialog(
+                  barrierDismissible: false,
+                  context: context, 
+                  builder:(context) {
+                    return AlertDialog(
+                      contentPadding: const EdgeInsets.all(5),
+                      actionsPadding: const EdgeInsets.all(5),
+                      titlePadding: const EdgeInsets.all(7),
+                      actionsAlignment: MainAxisAlignment.spaceAround,
+                      title: const Center(
+                        child:Text(
+                          "Pair with",
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.normal,
+                            color: Colors.black
+                          ),)
+                        ),
+                      
+                      content: PairDialogWidget(),
+                      actions: [
+                        TextButton(
+                          onPressed: (){
+                            setState(() {
+                              isPaired = true;
+                              Navigator.pop(context);
+                            });
+                          }, 
+                          child: const Text(
+                            "Connect",
+                            style: TextStyle(
+                              color: AppColors.primarColor,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w500
+                            ),
+                          )),
+
+                        TextButton(
+                          onPressed: ()=> Navigator.pop(context) , 
+                          child: const Text(
+                            "Cancel",
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w500
+                            ),
+                          ))
+                      ],
+                    );
+                  },);
+              }, 
+              icon: Icon(
+                !isPaired? Icons.connect_without_contact: Icons.cancel, 
+                color: AppColors.whiteColor,)),
+
             IconButton(
               onPressed: (){}, 
               icon: const Icon(Icons.notifications, color: Colors.white,)),
@@ -105,10 +176,10 @@ class _homeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         onPageChanged: (v) {
           tabIndex = v;
         },
-        children: const [
-          LearnNav(),
-          HomeNav(),
-          DictionaryNav(),
+        children: [
+          const LearnNav(),
+          HomeNav(isPaired:isPaired,),
+          const DictionaryNav(),
         ],
       ),
 

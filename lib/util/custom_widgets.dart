@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:twongere/route.dart';
+import 'package:twongere/routes/pair_screen/widgets/paired_screen_widgets.dart';
 import 'package:twongere/util/app_buttons.dart';
 import 'package:twongere/util/app_colors.dart';
 import 'package:twongere/util/app_styles.dart';
@@ -358,4 +359,77 @@ class _singleDropDownWidgetState extends State<SingleDropDownWidget>{
             );
       }, );
   }
+}
+
+
+class PairDialogWidget extends StatefulWidget{
+  const PairDialogWidget({super.key});
+
+
+  @override
+  _pairDialogWidgetState createState() => _pairDialogWidgetState();
+
+}
+
+
+class _pairDialogWidgetState extends State<PairDialogWidget>{
+
+
+  late final TextEditingController _userEmailController;
+
+
+  @override
+  void initState(){
+    super.initState();
+
+    _userEmailController = TextEditingController();
+
+  }
+
+  @override
+  void dispose(){
+    _userEmailController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context){
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: AppColors.bgGreyColor
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: TextField(
+        controller: _userEmailController,
+        decoration: const InputDecoration(
+          border: InputBorder.none,
+          hintText:  "Enter user email",
+        ),
+      ),
+    );
+  }
+}
+
+
+
+class SwitchablePairedScreen extends StatefulWidget{
+  final bool isInitiator;
+  final Function(bool) onSwitched;
+  const SwitchablePairedScreen({
+    super.key, 
+    required this.onSwitched,
+    required this.isInitiator});
+
+  @override
+  _switchablePairedScreen createState () => _switchablePairedScreen();
+}
+
+class _switchablePairedScreen extends State<SwitchablePairedScreen>{
+
+  @override
+  Widget build(BuildContext context){
+    return const TextInfoComponent();
+  }
+
 }

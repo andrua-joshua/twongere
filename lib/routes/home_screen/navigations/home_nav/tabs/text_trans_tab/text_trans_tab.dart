@@ -38,8 +38,8 @@ class _textTransTab extends State<TextTransTab> with WidgetsBindingObserver{
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance!.addObserver(this);
-    onNewCameraSelected(cameras[cameraIndex]);
+    WidgetsBinding.instance!.addObserver(this);  //<<-----should be uncommented
+    onNewCameraSelected(cameras[cameraIndex]);  //<<-----should be uncommented
   }
 
   @override
@@ -85,10 +85,10 @@ class _textTransTab extends State<TextTransTab> with WidgetsBindingObserver{
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 child: Stack(
                   children: [
-                    _isStreaming? 
+                    _isStreaming? //<<----- should be uncommented
                     // ZoomableWidget(
                     //     child: 
-                        cameraPreviewWidget()
+                        cameraPreviewWidget() //<<------should be uncommented
                         // onTapUp: (scaledPoint) {
                         //   //controller.setPointOfInterest(scaledPoint);
                         // },
@@ -99,7 +99,8 @@ class _textTransTab extends State<TextTransTab> with WidgetsBindingObserver{
                         //   }
                         // }
                         // )
-                        :Container(
+                        : //<<------should be uncommented
+                        Container(
                           color: AppColors.bgGreyColor,
                           constraints: const BoxConstraints.expand(height: 400),
                         ), 
@@ -138,7 +139,7 @@ class _textTransTab extends State<TextTransTab> with WidgetsBindingObserver{
                   ],
                 ),
               ),
-              const TxtTransTop(),
+              const TxtTransTop(), //<<-- should be uncommented
               !_isStreaming? FirstTxt(controller: _firstController):
               const TranslatedTextWidget(
                 text: "Collect and analyze market sentiment data from various sources, such as investor surveys, news sentiment analysis, and social media sentiment analysis. Collect and analyze market sentiment data from various sources, such as investor surveys, news sentiment analysis, and social media sentiment analysis.", 

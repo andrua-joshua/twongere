@@ -1,4 +1,4 @@
-package com.example.twongere
+package com.spheretwogere.twogere
 
 import io.flutter.embedding.android.FlutterActivity
 
