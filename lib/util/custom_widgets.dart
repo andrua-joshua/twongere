@@ -27,25 +27,85 @@ class SideDrawerWidget extends StatelessWidget{
                 const Text("Birungi Nelly", style: AppStyles.normalGreyColorTxtStyle,),
                 const Text("shatunelly7@gmail.com", style: AppStyles.normalGreyColorTxtStyle,),
                 const Text("0700000000", style: AppStyles.normalGreyColorTxtStyle,),
-                const SizedBox(height: 70,),
+                const SizedBox(height: 20,),
+                const Text(
+                  "Account",
+                  style: AppStyles.normalBoldBlackTxtStyle,
+                ),
+                const SizedBox(height: 10,),
+                const SizedBox(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child:Text(
+                          "Edit Profile", style: AppStyles.normalGreyColorTxtStyle,)),
+                        SizedBox(width: 10,),
+                        Icon(Icons.arrow_forward_ios)
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 10,),
                 CorneredButton(
                   label: "Subscribe", 
                   bgColor: AppColors.primarColor, 
                   txtColor: AppColors.whiteColor, 
-                  onClick: ()=> Navigator.pushNamed(context, RoutesGenerator.subscribeScreen))
+                  onClick: ()=> Navigator.pushNamed(context, RoutesGenerator.subscribeScreen)),
+
+                const SizedBox(height: 40,),
+                const Text(
+                  "Application Settings",
+                  style: AppStyles.normalBoldBlackTxtStyle,
+                ),
+                const SizedBox(height: 10,),
+                itemWidget("Primary Color"),
+                itemWidget("App Notification"),
+                itemWidget("Translation Language"),
+
+                const SizedBox(height: 50,),
+                DSolidButton(
+                  label: "Logout", 
+                  btnHeight: 45, 
+                  bgColor: AppColors.primarColor, 
+                  borderRadius: 15, 
+                  textStyle: AppStyles.normalWhiteTxtStyle, 
+                  onClick: (){}),
+
+                const SizedBox(height: 10,),
+            const Text("A product of Cognosphere Dynamics Limited. \nLicensed by the Cognosphere Dynamics Limited",
+            style: AppStyles.smallGreyTxtStyle,),
+            const SizedBox(height: 10,),
 
               ],
             ),
           )),
-          GestureDetector(
-            onTap: () => Navigator.pushNamed(context, RoutesGenerator.loginScreen), 
-            child: const Text("LOGOUT", style: AppStyles.normalGreyColorTxtStyle,)),
-            const SizedBox(height: 10,),
-            const Text("A product of Cognosphere Dynamics Limited. \nLicensed by the Cognosphere Dynamics Limited",
-            style: AppStyles.smallGreyTxtStyle,)
+          // GestureDetector(
+          //   onTap: () => Navigator.pushNamed(context, RoutesGenerator.loginScreen), 
+          //   child: const Text("LOGOUT", style: AppStyles.normalGreyColorTxtStyle,)),
+            // const SizedBox(height: 10,),
+            // const Text("A product of Cognosphere Dynamics Limited. \nLicensed by the Cognosphere Dynamics Limited",
+            // style: AppStyles.smallGreyTxtStyle,)
       ],
     )); //
   }//.jsx /tsx
+
+  Widget itemWidget(String label)
+  => Container(
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(15),
+      color: AppColors.greyColor
+    ),
+    margin: const EdgeInsets.symmetric(vertical: 10),
+    padding: const EdgeInsets.all(7),
+        child: Row(
+          children: [
+            Expanded(
+              child:Text(
+                label, style: AppStyles.normalBlackTxtStyle,)),
+              const SizedBox(width: 10,),
+              const Icon(Icons.keyboard_arrow_down_rounded)
+          ],
+        ),
+      );
 
 }
 

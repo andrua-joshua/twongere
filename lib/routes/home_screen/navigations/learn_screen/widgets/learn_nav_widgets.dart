@@ -3,6 +3,7 @@ import 'package:twongere/route.dart';
 import 'package:twongere/routes/home_screen/navigations/dictionary_screen/widgets/dictionary_nav_widget.dart';
 import 'package:twongere/routes/home_screen/navigations/home_nav/tabs/text_trans_tab/widgets/text_trans_tab_widgets.dart';
 import 'package:twongere/util/app_colors.dart';
+import 'package:twongere/util/app_constansts.dart';
 import 'package:twongere/util/app_styles.dart';
 
 class TopLearnDropDown extends StatelessWidget{
@@ -245,5 +246,78 @@ class SignLang extends StatelessWidget{
 
       ],
     );
+  }
+}
+
+
+
+class UnitEducationContent extends StatefulWidget{
+  const UnitEducationContent({super.key});
+
+  @override
+  UnitEducationContentState createState () => UnitEducationContentState();
+}
+
+
+class UnitEducationContentState extends State<UnitEducationContent>{
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, RoutesGenerator.topicDetailsScreen),
+      child:Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 14
+      ),
+      child:Row(
+      children: [
+        Container(
+          height: 80,
+          width: 80,
+          decoration: const BoxDecoration(
+            color: AppColors.greyColor
+          ),
+        ),
+        const SizedBox(width: 10,),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                child: Row(
+                  children: [
+                    const Expanded(
+                      child: Text(
+                        "TOPIC: Introduction to ICT", 
+                        style: AppStyles.normalBoldBlackTxtStyle,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        )),
+                      GestureDetector(
+                        onTap: (){}, 
+                        child: const CircleAvatar(
+                          radius: 13,
+                          backgroundColor: Colors.red,
+                          child: Icon(Icons.thumb_up, size: 20 ,color: AppColors.whiteColor,),
+                        )),
+                      const SizedBox(width: 10,),
+                      GestureDetector(
+                        onTap: (){}, 
+                        child: const CircleAvatar(
+                          radius: 13,
+                          backgroundColor: Colors.red,
+                          child: Icon(Icons.favorite, size: 20, color: AppColors.whiteColor,),
+                        )),
+                  ],
+                ),
+              ),
+              const Text(
+                AppConstansts.longTxt, 
+                maxLines: 2, overflow: TextOverflow.ellipsis,
+                style: AppStyles.normalBlackTxtStyle,)
+            ],
+          ))
+      ],
+    )));
   }
 }

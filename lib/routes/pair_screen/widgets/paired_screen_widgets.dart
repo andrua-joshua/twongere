@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:twongere/routes/home_screen/navigations/home_nav/tabs/text_trans_tab/widgets/text_trans_tab_widgets.dart';
 import 'package:twongere/util/app_colors.dart';
 import 'package:twongere/util/app_styles.dart';
+import 'package:video_player/video_player.dart';
 
 class TextInfoComponent extends StatefulWidget{
   const TextInfoComponent({super.key});
@@ -197,6 +198,23 @@ class VideoInfoComponent extends StatefulWidget{
 
 class _videoInfoComponentState extends State<VideoInfoComponent>{
 
+  VideoPlayerController controller = VideoPlayerController.asset("assets/videos/earthena.mp4");
+
+  @override
+  void initState() {
+    
+    super.initState();
+    // controller.play();
+    controller.setLooping(true);
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    controller.dispose();
+  }
+
   @override
   Widget build(BuildContext context){
     return Container(
@@ -217,6 +235,28 @@ class _videoInfoComponentState extends State<VideoInfoComponent>{
                       borderRadius: BorderRadius.circular(20),
                       color: AppColors.bgGreyColor,
                     ),
+
+                    child: FutureBuilder(
+                        future: controller.initialize(), 
+                        builder: (context, snapshot) {
+                          
+                          if(snapshot.connectionState == ConnectionState.done){
+                            controller.play();
+                            return VideoPlayer(controller);
+                          }
+
+                          if(snapshot.hasError){
+                            return const Text("Error loading video");
+                          }
+
+                          return const Center(
+                            child: SizedBox(
+                              height: 40,
+                              width: 40,
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
+                        }, ),
                   ),
                 ),
                 // Align(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:twongere/routes/home_screen/navigations/dictionary_screen/dictionary_screen.dart';
 import 'package:twongere/routes/home_screen/navigations/home_nav/home_nav.dart';
 import 'package:twongere/routes/home_screen/navigations/learn_screen/learn_screen.dart';
+import 'package:twongere/routes/home_screen/navigations/opportunity_screen/oppotunity_screen.dart';
 import 'package:twongere/util/app_colors.dart';
 import 'package:twongere/util/app_styles.dart';
 import 'package:twongere/util/custom_widgets.dart';
@@ -71,7 +72,7 @@ class _homeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             ],
           ),
 
-          title: Text(tabIndex==0?"Learn":tabIndex==1?"Twogere":"Dictionary", 
+          title: Text(tabIndex==0?"Opportunity":tabIndex==1?"Twogere":"Learn", 
           style: AppStyles.titleWhiteTxtStyle,),
           centerTitle: true,
 
@@ -149,9 +150,9 @@ class _homeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           Icon(Icons.ac_unit_outlined, color: AppColors.primarColor),
         ],
         inactiveIcons: const [
-          Text("Learn"),
+          Text("Opportunity"),
           Text("Home"),
-          Text("Dictionary"),
+          Text("Learn"),
         ],
         color: Colors.white,
         height: 60,
@@ -177,9 +178,10 @@ class _homeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           tabIndex = v;
         },
         children: [
-          const LearnNav(),
+          const OpportunityScreen(),
           HomeNav(isPaired:isPaired,),
-          const DictionaryNav(),
+          const LearnNav(),
+          
         ],
       ),
 

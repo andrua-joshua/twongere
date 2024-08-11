@@ -10,6 +10,19 @@ class AppStyles{
     color: AppColors.blackColor
   );
 
+  static const TextStyle normalWhiteTxtStyle = TextStyle(
+    fontSize: AppFontSize.normalFontSize,
+    fontWeight: FontWeight.normal,
+    color: AppColors.whiteColor
+  );
+
+
+  static const TextStyle normalBoldBlackTxtStyle = TextStyle(
+    fontSize: AppFontSize.normalFontSize,
+    fontWeight: FontWeight.bold,
+    color: AppColors.blackColor
+  );
+
   static const TextStyle smallBlackTxtStyle = TextStyle(
     fontSize: AppFontSize.smallFontSize,
     fontWeight: FontWeight.normal,

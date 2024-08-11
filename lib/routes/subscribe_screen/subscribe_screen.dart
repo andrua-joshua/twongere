@@ -86,7 +86,7 @@ class _subscribeScreenState extends State<SubscribeScreen>{
                   const Text("Select Plan", style: AppStyles.normalGreyColorTxtStyle,),
                   const SizedBox(height: 5,),
                   SingleDropDownWidget(
-                      list: const ["Day", "Month"],
+                      list: const ["Day: 1300UGX", "1 Month: 25000UGX", "3 Months: 25000UGX"],
                       onChange: (v){
                         setState(() {
                          
@@ -117,25 +117,25 @@ class _subscribeScreenState extends State<SubscribeScreen>{
 
 
                   const SizedBox(height: 20,),
-                  Container(
-                    constraints: const BoxConstraints.expand(height: 50,),
-                    decoration: BoxDecoration(
-                      color: AppColors.bgGreyColor,
-                      borderRadius: BorderRadius.circular(60)
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: TextFormField(
-                      controller: _amountController,
-                      style: AppStyles.normalBlackTxtStyle,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        border: InputBorder.none,
-                        hintText: "Enter Amount",
-                        hintStyle: AppStyles.normalGreyColorTxtStyle
-                      ),
-                    )  
-                  ),
-                  const SizedBox(height: 20,),
+                  // Container(
+                  //   constraints: const BoxConstraints.expand(height: 50,),
+                  //   decoration: BoxDecoration(
+                  //     color: AppColors.bgGreyColor,
+                  //     borderRadius: BorderRadius.circular(60)
+                  //   ),
+                  //   padding: const EdgeInsets.symmetric(horizontal: 10),
+                  //   child: TextFormField(
+                  //     controller: _amountController,
+                  //     style: AppStyles.normalBlackTxtStyle,
+                  //     keyboardType: TextInputType.number,
+                  //     decoration: const InputDecoration(
+                  //       border: InputBorder.none,
+                  //       hintText: "Enter Amount",
+                  //       hintStyle: AppStyles.normalGreyColorTxtStyle
+                  //     ),
+                  //   )  
+                  // ),
+                  // const SizedBox(height: 20,),
                   // SizedBox(
                   //   child: CorneredButton(
                   //     label: "Process Payment >>>>", 

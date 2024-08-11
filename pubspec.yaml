@@ -40,8 +40,9 @@ dependencies:
   circle_nav_bar: ^2.0.1+1
   flutter_better_camera: ^1.0.3
   path_provider: ^2.1.3
-  video_player: ^2.8.6
+  video_player: ^2.9.1
   http: ^1.2.1
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +72,8 @@ flutter:
     - assets/images/bg.png
     - assets/images/loding.gif
     - assets/images/cog.png
+    - assets/videos/earthena.mp4
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -28,6 +28,7 @@ class _textTransTab extends State<TextTransTab> with WidgetsBindingObserver{
   String? imagePath;
   late String videoPath;
   VideoPlayerController? videoController;
+  VideoPlayerController _videoController = VideoPlayerController.asset("assets/videos/earthena.mp4");
   late VoidCallback videoPlayerListener;
   bool enableAudio = true;
   FlashMode flashMode = FlashMode.off;
@@ -38,6 +39,8 @@ class _textTransTab extends State<TextTransTab> with WidgetsBindingObserver{
   void initState() {
     super.initState();
 
+    _videoController.play();
+    _videoController.setLooping(true);
     WidgetsBinding.instance!.addObserver(this);  //<<-----should be uncommented
     onNewCameraSelected(cameras[cameraIndex]);  //<<-----should be uncommented
   }
@@ -47,6 +50,8 @@ class _textTransTab extends State<TextTransTab> with WidgetsBindingObserver{
     WidgetsBinding.instance!.removeObserver(this);
     _firstController.dispose();
     super.dispose();
+
+    _videoController.dispose();
   }
 
     @override
@@ -103,6 +108,27 @@ class _textTransTab extends State<TextTransTab> with WidgetsBindingObserver{
                         Container(
                           color: AppColors.bgGreyColor,
                           constraints: const BoxConstraints.expand(height: 400),
+                          child: FutureBuilder(
+                            future: _videoController.initialize(), 
+                            builder: (context, snapshot) {
+                              
+                              if(snapshot.connectionState == ConnectionState.done){
+                                _videoController.play();
+                                return VideoPlayer(_videoController);
+                              }
+
+                              if(snapshot.hasError){
+                                return const Text("Error loading video");
+                              }
+
+                              return const Center(
+                                child: SizedBox(
+                                  height: 40,
+                                  width: 40,
+                                  child: CircularProgressIndicator(),
+                                ),
+                              );
+                            }, ),
                         ), 
                       
                     // const SizedBox(height: 10,),
@@ -139,11 +165,11 @@ class _textTransTab extends State<TextTransTab> with WidgetsBindingObserver{
                   ],
                 ),
               ),
-              const TxtTransTop(), //<<-- should be uncommented
+              // const TxtTransTop(), //<<-- should be uncommented
               !_isStreaming? FirstTxt(controller: _firstController):
               const TranslatedTextWidget(
                 text: "Collect and analyze market sentiment data from various sources, such as investor surveys, news sentiment analysis, and social media sentiment analysis. Collect and analyze market sentiment data from various sources, such as investor surveys, news sentiment analysis, and social media sentiment analysis.", 
-                language: "lusoga")
+                language: "English")
           ],
         ),
       ), 
